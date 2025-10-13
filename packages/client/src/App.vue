@@ -158,13 +158,14 @@ async function handleSubmit() {
         class="min-h-0 resize-none rounded-t-md border-none p-2 outline-none"
         bg="$c-textarea-bg-light dark:$c-textarea-bg-dark"
         text="inherit base disabled:$c-textarea-disabled-text"
+        font="inherit"
         cursor="disabled:not-allowed"
         :placeholder="textContentPlaceholder"
         :disabled="disableInput"
       />
     </label>
     <details v-if="imageUrls.length !== 0" class="m-2">
-      <summary class="cursor-pointer appearance-none m-0!">
+      <summary class="cursor-pointer appearance-none m-0!" font="inherit">
         <span> 当前选中了 {{ imageUrls.length }} 张图片 </span>
       </summary>
       <div class="flex overflow-x-auto space-x-4">
@@ -196,10 +197,10 @@ async function handleSubmit() {
         bg="$c-contact-bg-light dark:$c-contact-bg-dark"
         cursor="disabled:not-allowed"
         text="sm"
+        font="inherit"
         :placeholder="contactContentPlaceholder"
         :disabled="disableInput"
       >
-
     </label>
     <div
       class="flex justify-around gap-2 rounded-b-md p-2 !<sm:flex-col"
@@ -222,6 +223,7 @@ async function handleSubmit() {
           transition="all ease-in-out"
           bg="zinc-200 hover:zinc-300 active:zinc-400 dark:zinc-800 dark:hover:zinc-700 dark:active:zinc-600"
           text="zinc-700 dark:zinc-300 base"
+          font="inherit"
           cursor="disabled:not-allowed"
           :disabled="disableInput"
           @click="handleSelectImage"
@@ -245,6 +247,7 @@ async function handleSubmit() {
         transition="all ease-in-out"
         bg="zinc-200 hover:zinc-300 active:zinc-400 dark:zinc-800 dark:hover:zinc-700 dark:active:zinc-600"
         text="base"
+        font="inherit"
         :disabled="!textContent || disableInput || sentFailed"
         @click="handleSubmit"
       >
