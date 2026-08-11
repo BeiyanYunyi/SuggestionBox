@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.1",
   "private": true,
-  "packageManager": "pnpm@10.18.2+sha512.9fb969fa749b3ade6035e0f109f0b8a60b5d08a1a87fdf72e337da90dcc93336e2280ca4e44f2358a649b83c17959e9993e777c2080879f3801e6f0d999ad3dd",
+  "packageManager": "pnpm@11.21.0+sha512.521705bce689924eac72f5a3587122f362689ef6571e55ba80076fd637c11132ecffada26fad4ea79c485bfddbfd3d5a2a5b05805a77e893de71ec8a6cca3bb1",
   "description": "Suggestion box for Project Trans",
   "author": {
     "name": "Project Trans Team Members",
@@ -29,31 +29,5 @@
     "eslint": "^9.36.0",
     "eslint-plugin-format": "^1.0.2",
     "typescript": "^5.9.2"
-  },
-  "pnpm": {
-    "overrides": {
-      "array-includes": "npm:@nolyfill/array-includes@^1",
-      "array.prototype.findlastindex": "npm:@nolyfill/array.prototype.findlastindex@^1",
-      "array.prototype.flat": "npm:@nolyfill/array.prototype.flat@^1",
-      "array.prototype.flatmap": "npm:@nolyfill/array.prototype.flatmap@^1",
-      "hasown": "npm:@nolyfill/hasown@^1",
-      "is-core-module": "npm:@nolyfill/is-core-module@^1",
-      "object.assign": "npm:@nolyfill/object.assign@^1",
-      "object.entries": "npm:@nolyfill/object.entries@^1",
-      "object.fromentries": "npm:@nolyfill/object.fromentries@^1",
-      "object.groupby": "npm:@nolyfill/object.groupby@^1",
-      "object.values": "npm:@nolyfill/object.values@^1",
-      "synckit": "npm:synckit@0.11.8"
-    },
-    "onlyBuiltDependencies": [
-      "@prisma/client",
-      "@prisma/engines",
-      "esbuild",
-      "oxc-resolver",
-      "prisma",
-      "sharp",
-      "vue-demi",
-      "workerd"
-    ]
   }
 }
