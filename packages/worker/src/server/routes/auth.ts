@@ -12,7 +12,7 @@ const auth = new Hono<{ Bindings: ENV }>()
 auth.get('/start_auth', async (c) => {
   const { JWT_SECRET, GH_APP_CLIENT_ID, SERVE_URL } = env(c)
   const state = nanoid()
-  const cipheredState = await sign({ state, iat: Math.floor(Date.now() / 1000) }, JWT_SECRET)
+  const cipheredState = await sign({ state, iat: Math.floor(Date.now() / 1000) }, JWT_SECRET, 'HS256')
   const query = new URLSearchParams({
     client_id: GH_APP_CLIENT_ID,
     redirect_uri: new URL('/oauth', SERVE_URL).toString(),
@@ -54,7 +54,7 @@ export interface GhAuthResponse extends GhAuthSuccess {
 auth.post('/get_token', createArktypeValidator(getTokenRequest), async (c) => {
   const { JWT_SECRET, GH_APP_CLIENT_ID, GH_APP_CLIENT_SECRET } = env(c)
   const { code, state: cipheredState } = c.req.valid('json')
-  const state = await verify(cipheredState, JWT_SECRET)
+  const state = await verify(cipheredState, JWT_SECRET, { alg: 'HS256' })
   if (!state.iat || state.iat < Math.floor(Date.now() / 1000) - 60 * 5) {
     return c.json(newErrorFormat400('State is invalid or expired'), 400)
   }

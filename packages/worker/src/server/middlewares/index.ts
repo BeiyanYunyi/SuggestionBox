@@ -43,10 +43,10 @@ export const decodeTicket = createMiddleware<{ Variables: { ticket: Ticket }, Bi
       const ticketId = getTicketId()
       const ticketUrl = new URL(`/ticket/${ticketId.substring(1)}`, SERVE_URL).toString()
       const metaIP = c.req.header(IP_HEADER) || ''
-      const metaReferrer = form.get('referrer') || c.req.header('Referer') || ''
+      const metaReferrer = form.get('referrer') as string || c.req.header('Referer') || ''
       const metaUA = c.req.header('User-Agent') || ''
-      const textContent = form.get('textContent') || ''
-      const contactContent = form.get('contactContent') || ''
+      const textContent = form.get('textContent') as string || ''
+      const contactContent = form.get('contactContent') as string || ''
 
       const reqImages = form.getAll('images') as unknown as File[]
       const msgImages = await Promise.all(reqImages.map(async (image) => {

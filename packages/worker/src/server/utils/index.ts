@@ -77,7 +77,7 @@ export interface VerifyGhTokenResponse {
 
 function getGhClient(token: string) {
   return ky.create({
-    prefixUrl: 'https://api.github.com',
+    prefix: 'https://api.github.com',
     headers: {
       'Accept': 'application/vnd.github.v3+json',
       'User-Agent': 'SuggestionBox-Backend',

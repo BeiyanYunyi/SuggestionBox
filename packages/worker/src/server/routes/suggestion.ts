@@ -1,3 +1,4 @@
+import type { Message } from 'grammy/types'
 import type { ENV } from '../types'
 import { createUpdateSchema } from 'drizzle-arktype'
 import { and, count, eq, gte, sql } from 'drizzle-orm'
@@ -38,7 +39,7 @@ router.post('/', decodeTicket, withDrizzle, async (c) => {
 
   let images: string[] = []
   if (ticket.images.length) {
-    const msg = await bot.api.sendMediaGroup(TG_GROUP_ID, ticket.images)
+    const msg = await bot.api.sendMediaGroup(TG_GROUP_ID, ticket.images) as Message.PhotoMessage[]
     images = getImagesID(msg)
   }
   else {
