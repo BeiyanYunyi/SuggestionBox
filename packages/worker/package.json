@@ -2,6 +2,9 @@
   "name": "@project-trans/suggestion-box-server",
   "type": "module",
   "private": true,
+  "engines": {
+    "node": ">=26.0.0"
+  },
   "scripts": {
     "deploy": "wrangler deploy --minify src/index.ts",
     "lint": "eslint --cache .",

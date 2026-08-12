@@ -42,4 +42,6 @@ const styles = defineStyleX({
 </template>
 ```
 
+When using StyleX, never use any form of shorthand CSS properties (e.g. `margin`, `padding`, `border`, etc.) or shorthand values (e.g. `0 0 0 0`, `1px solid red`, etc.). Use the longhand properties instead.
+
 Search `defineStyleX` in the codebase for more examples.
