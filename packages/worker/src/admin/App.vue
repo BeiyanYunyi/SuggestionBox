@@ -11,6 +11,9 @@ import UserInfo from './components/UserInfo'
         <RouterLink to="/">
           Home
         </RouterLink>
+        <RouterLink :to="{ name: 'admin', params: { page: 1 } }">
+          Admin
+        </RouterLink>
         <RouterLink to="/about">
           About
         </RouterLink>

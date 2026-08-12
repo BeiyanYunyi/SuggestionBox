@@ -1,136 +1,89 @@
 <script setup lang="ts">
-import ky from 'ky'
-import MaterialSymbolsChevronLeft from '~icons/material-symbols/chevron-left'
-import MaterialSymbolsChevronRight from '~icons/material-symbols/chevron-right'
-import Circle from '@/components/Circle.vue'
-import TableRow from '@/components/TableRow.vue'
-import { useTokens } from '@/composables/auth'
-import { useSuggestions } from '@/composables/suggestion'
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { black, yellow } from '@/utils/colors.stylex'
 import { fonts } from '@/utils/fonts.stylex'
 
-const { data: tickets, page, totalPages, prev, next, canPrev, canNext } = await useSuggestions()
+const ticketNumber = ref('')
+const router = useRouter()
 
 const styles = defineStyleX({
-  table: {
-    display: 'grid',
-    gridTemplateColumns: 'fit-content(20rem) auto fit-content(15rem) min-content',
-    borderColor: black.background,
-    borderInlineWidth: '4px',
-    borderStyle: 'solid',
-    maxInlineSize: '1280px',
-    marginInline: 'auto',
-    marginBlockStart: '2rem',
-    position: 'relative',
-    zIndex: 1,
-    backgroundColor: yellow.background,
+  main: {
+    minBlockSize: '70vh',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingInline: '1.5rem',
   },
-  tHead: {
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '1rem',
+    inlineSize: '100%',
+    maxInlineSize: '36rem',
+  },
+  label: {
+    color: black.text,
+    fontFamily: fonts.chillDinGothic,
+    fontSize: '2rem',
+    fontWeight: 600,
+  },
+  controls: {
+    display: 'flex',
+    gap: '0.75rem',
+  },
+  input: {
+    flex: 1,
+    minInlineSize: 0,
+    padding: '0.75rem 1rem',
+    borderColor: black.background,
+    borderStyle: 'solid',
+    borderWidth: '3px',
+    backgroundColor: yellow.background,
+    color: black.text,
+    fontFamily: fonts.chillDinGothic,
+    fontSize: '1.25rem',
+    outline: 'none',
+  },
+  button: {
+    paddingInline: '1.5rem',
+    border: 'none',
     backgroundColor: black.background,
     color: black.contrast,
-    fontSize: '2.5rem',
-    fontWeight: 'bold',
-    textWrap: 'nowrap',
-  },
-  forward: {
-    position: 'absolute',
-    top: '2rem',
-    left: '6rem',
-  },
-  btn: {
-    background: 'none',
-    outline: 'none',
-    border: 'none',
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
     cursor: 'pointer',
-    zIndex: 1,
-    fontSize: '2rem',
     fontFamily: fonts.chillDinGothic,
-    fontWeight: 500,
-    color: black.contrast2,
-  },
-  btnPrev: {
-    transform: 'rotate(-12.5deg)',
-    position: 'absolute',
-    top: '12rem',
-    left: '1.5rem',
-  },
-  backward: {
-    position: 'relative',
-    bottom: '12rem',
-    left: '80%',
-  },
-  btnNext: {
-    transform: 'rotate(12.5deg)',
-    position: 'absolute',
-    bottom: '12rem',
-    right: '1.5rem',
-  },
-  pageInfo: {
-    marginInline: 'auto',
-    inlineSize: 'fit-content',
-    backgroundColor: black.background,
-    color: black.contrast2,
-    fontWeight: 500,
-    fontSize: '2rem',
-    letterSpacing: '5%',
-    marginBlockStart: '2.25rem',
-    padding: '0.25rem',
+    fontSize: '1.25rem',
+    fontWeight: 600,
   },
 })
 
-const { tokens } = useTokens()
+function openTicket() {
+  const id = ticketNumber.value.trim().replace(/^#/, '').trim()
+  if (!id)
+    return
 
-function handleGC() {
-  ky.delete('/api/v1/admin/images/gc', {
-    headers: {
-      Authorization: `Bearer ${tokens.value!.access_token}`,
-    },
-  })
+  router.push({ name: 'ticket', params: { id } })
 }
 </script>
 
 <template>
-  <main>
-    <button @click.prevent="handleGC">
-      GC cached images
-    </button>
-
-    <div v-if="tickets">
-      <Circle v-stylex="styles.forward" color="black">
-        <button v-if="canPrev" v-stylex="(styles.btn, styles.btnPrev)" @click.prevent="prev">
-          <MaterialSymbolsChevronLeft /> Prev
+  <main v-stylex="styles.main">
+    <form v-stylex="styles.form" @submit.prevent="openTicket">
+      <label v-stylex="styles.label" for="ticket-number">查询工单</label>
+      <div v-stylex="styles.controls">
+        <input
+          id="ticket-number"
+          v-model="ticketNumber"
+          v-stylex="styles.input"
+          name="ticket-number"
+          placeholder="#TN-1111GpUb"
+          autocomplete="off"
+          autofocus
+        >
+        <button v-stylex="styles.button" type="submit">
+          查询
         </button>
-      </Circle>
-      <div v-stylex="styles.table">
-        <div v-stylex="styles.tHead">
-          ID
-        </div>
-        <div v-stylex="styles.tHead">
-          Content
-        </div>
-        <div v-stylex="styles.tHead">
-          Time
-        </div>
-        <div v-stylex="styles.tHead">
-          Status
-        </div>
-        <TableRow
-          v-for="ticket in tickets.suggestions"
-          :key="ticket.id"
-          :ticket="ticket"
-        />
       </div>
-      <div v-stylex="styles.pageInfo">
-        Page {{ page + 1 }} / {{ totalPages }}
-      </div>
-      <Circle v-stylex="styles.backward" color="black">
-        <button v-if="canNext" v-stylex="(styles.btn, styles.btnNext)" @click.prevent="next">
-          Next <MaterialSymbolsChevronRight />
-        </button>
-      </Circle>
-    </div>
+    </form>
   </main>
 </template>
