@@ -78,7 +78,7 @@ async function useSuggestionsInner() {
   const limit = 10
   const page = ref(0)
   const { data: auth } = await useAuth()
-  const { data, refresh, refetch } = useQuery(suggestionQuery({ page: page.value, limit, auth: auth.value }))
+  const { data, refresh, refetch } = useQuery(() => suggestionQuery({ page: page.value, limit, auth: auth.value }))
   if (!data.value) {
     await refresh()
   }
