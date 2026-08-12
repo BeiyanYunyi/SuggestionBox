@@ -1,41 +1,37 @@
 <script setup lang="ts">
 import { PiniaColadaDevtools } from '@pinia/colada-devtools'
-import { RouterLink, RouterView } from 'vue-router'
-import UserInfo from './components/UserInfo'
+import { RouterView } from 'vue-router'
+import AppFooter from './components/AppFooter.vue'
+import AppHeader from './components/AppHeader.vue'
+
+const styles = defineStyleX({
+  content: {
+    flex: 1,
+  },
+})
 </script>
 
 <template>
-  <header>
-    <div class="wrapper">
-      <nav>
-        <RouterLink to="/">
-          Home
-        </RouterLink>
-        <RouterLink :to="{ name: 'admin', params: { page: 1 } }">
-          Admin
-        </RouterLink>
-        <RouterLink to="/about">
-          About
-        </RouterLink>
-        <UserInfo />
-      </nav>
-    </div>
-  </header>
+  <AppHeader />
 
-  <RouterView v-slot="{ Component }">
-    <template v-if="Component">
-      <Transition mode="out-in">
-        <Suspense>
-          <!-- 主要内容 -->
-          <component :is="Component" />
-          <!-- 加载中状态 -->
-          <template #fallback>
-            正在加载...
-          </template>
-        </Suspense>
-      </Transition>
-    </template>
-  </RouterView>
+  <div v-stylex="styles.content">
+    <RouterView v-slot="{ Component }">
+      <template v-if="Component">
+        <Transition mode="out-in">
+          <Suspense>
+            <!-- 主要内容 -->
+            <component :is="Component" />
+            <!-- 加载中状态 -->
+            <template #fallback>
+              正在加载...
+            </template>
+          </Suspense>
+        </Transition>
+      </template>
+    </RouterView>
+  </div>
+
+  <AppFooter />
   <PiniaColadaDevtools />
 </template>
 
