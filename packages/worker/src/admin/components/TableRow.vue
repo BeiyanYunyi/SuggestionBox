@@ -16,14 +16,15 @@ import MaterialSymbolsCheckCircleOutline from '~icons/material-symbols/check-cir
 import MaterialSymbolsCircleOutline from '~icons/material-symbols/circle-outline'
 import { STATUS_MAP } from '@/utils'
 import { black, brown, gray, green } from '@/utils/colors.stylex'
+import { fonts } from '@/utils/fonts.stylex'
 
 const props = defineProps<{ ticket: TicketAdmin }>()
 
 const styles = defineStyleX({
   tableText: {
-    fontWeight: 600,
-    fontSize: '1.5rem',
+    fontSize: '1rem',
     color: black.text,
+    fontFamily: fonts.userContent,
   },
   fullHeight: { height: '100%' },
   link: {

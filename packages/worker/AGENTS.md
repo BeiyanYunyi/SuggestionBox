@@ -9,6 +9,8 @@ This folder includes the worker-side code and admin panel frontend code for the 
 - Vue 3
 - Pinia
 - Pinia Colada
+- unplugin-icons
+- @iconify-json/material-symbols
 
 ## Commands
 

@@ -52,7 +52,7 @@ const styles = defineStyleX({
     cursor: 'pointer',
     zIndex: 1,
     fontSize: '2rem',
-    fontFamily: fonts.chillDinGothic,
+    fontFamily: fonts.interface,
     fontWeight: 500,
     color: black.contrast2,
   },

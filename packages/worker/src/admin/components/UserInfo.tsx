@@ -2,15 +2,39 @@ import type { GhAuthResponse } from '../../server/routes/auth'
 import type { Authorized, Refreshing } from '@/composables/auth'
 import ky from 'ky'
 import { defineComponent, Suspense } from 'vue'
+import MaterialSymbolsLogin from '~icons/material-symbols/login'
+import MaterialSymbolsLogout from '~icons/material-symbols/logout'
 import { useAuth, useTokens } from '@/composables/auth'
 import { useGitHubOAuthURL } from '@/composables/github'
+
+const iconStyle = {
+  blockSize: '1.75rem',
+  inlineSize: '1.75rem',
+}
+
+const iconButtonStyle = {
+  alignItems: 'center',
+  backgroundColor: 'transparent',
+  borderWidth: 0,
+  color: 'inherit',
+  cursor: 'pointer',
+  display: 'inline-flex',
+  paddingBlock: '0.25rem',
+  paddingInline: '0.25rem',
+}
 
 const LoginButton = defineComponent({
   setup: async () => {
     const url = await useGitHubOAuthURL()
     return () => (
-      <a href={url.value} rel="noopener noreferrer">
-        Login
+      <a
+        aria-label="Login"
+        href={url.value}
+        rel="noopener noreferrer"
+        style={iconButtonStyle}
+        title="Login"
+      >
+        <MaterialSymbolsLogin aria-hidden="true" style={iconStyle} />
       </a>
     )
   },
@@ -50,8 +74,26 @@ const UserInfo = defineComponent(async () => {
       <span>
         {authState.value!.user.name}
       </span>
-      <button type="button" onClick={() => clearTokens()}>
-        Logout
+      <img
+        alt={`${authState.value!.user.name} avatar`}
+        height="36"
+        src={authState.value!.user.avatar}
+        style={{
+          blockSize: '2.25rem',
+          borderRadius: '50%',
+          inlineSize: '2.25rem',
+          objectFit: 'cover',
+        }}
+        width="36"
+      />
+      <button
+        aria-label="Logout"
+        title="Logout"
+        type="button"
+        style={iconButtonStyle}
+        onClick={() => clearTokens()}
+      >
+        <MaterialSymbolsLogout aria-hidden="true" style={iconStyle} />
       </button>
     </>
   )
